@@ -2,13 +2,16 @@ import React from "react";
 import Button from "src/components/Button/Button";
 import { MdAddBox, MdClose } from "react-icons/md";
 import Modal from "src/components/Modal/Modal";
+import Table from "src/components/Table/Table";
+
+import { tableData, columnData } from "src/config/tableData";
 import "./pages.scss";
 
 const AllItems = () => {
   const [modalState, SetModalState] = React.useState(false);
-  const handleAddNew = () => {
-    SetModalState(true);
-  };
+  const [data, setData] = React.useState(tableData);
+
+  const handleAddNew = () => SetModalState(true);
 
   const handleModalClose = () => SetModalState(false);
 
@@ -24,6 +27,12 @@ const AllItems = () => {
             buttonType="primary"
           />
         </header>
+        <div>
+          <input value="Search Field" />
+        </div>
+        <div>
+          <Table tableData={data} columnData={columnData} />
+        </div>
         <Modal modalState={modalState}>
           <AddNewItem handleClose={handleModalClose} />
         </Modal>

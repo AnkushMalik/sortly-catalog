@@ -1,44 +1,10 @@
-import {
-  MdOutlineDashboard,
-  MdOutlineInventory2,
-  MdSearch,
-  MdPushPin,
-  MdInsertChartOutlined,
-} from "react-icons/md";
 import { Link, useLocation } from "react-router-dom";
+import LinkData from "src/config/linkData";
 
 import "./styles.scss";
 
 const Sidebar = () => {
   const { pathname } = useLocation();
-
-  const LinkData = [
-    {
-      path: ["/dashboard"],
-      name: "Dashboard",
-      iconElement: <MdOutlineDashboard />,
-    },
-    {
-      path: ["/items", "/"],
-      name: "Items",
-      iconElement: <MdOutlineInventory2 />,
-    },
-    {
-      path: ["/search"],
-      name: "Search",
-      iconElement: <MdSearch />,
-    },
-    {
-      path: ["/tags"],
-      name: "Tags",
-      iconElement: <MdPushPin />,
-    },
-    {
-      path: ["/reports"],
-      name: "reports",
-      iconElement: <MdInsertChartOutlined />,
-    },
-  ];
 
   return (
     <div className="sidebar">
