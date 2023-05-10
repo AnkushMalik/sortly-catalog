@@ -14,6 +14,7 @@ const Sidebar = () => {
           <Link
             to={e.path[0]}
             className={`nav-item ${e.path.includes(pathname) && "selected"}`}
+            key={i}
           >
             {e.iconElement}
             <span className="nav-item-name">{e.name}</span>

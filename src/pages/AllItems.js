@@ -2,14 +2,14 @@ import React from "react";
 import Button from "src/components/Button/Button";
 import { MdAddBox, MdClose } from "react-icons/md";
 import Modal from "src/components/Modal/Modal";
-import Table from "src/components/Table/Table";
+import Table from "src/components/Table/Table.tsx";
 
-import { tableData, columnData } from "src/config/tableData";
+import { tableData } from "src/config/tableData";
 import "./pages.scss";
 
 const AllItems = () => {
+  const [data, SetData] = React.useState(tableData);
   const [modalState, SetModalState] = React.useState(false);
-  const [data, setData] = React.useState(tableData);
 
   const handleAddNew = () => SetModalState(true);
 
@@ -31,7 +31,7 @@ const AllItems = () => {
           <input value="Search Field" />
         </div>
         <div>
-          <Table tableData={data} columnData={columnData} />
+          <Table tableData={data} />
         </div>
         <Modal modalState={modalState}>
           <AddNewItem handleClose={handleModalClose} />
