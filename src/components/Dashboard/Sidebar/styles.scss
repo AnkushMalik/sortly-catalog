@@ -1,4 +1,31 @@
 .sidebar {
   flex: 1;
   background: #d92533;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .logo {
+    width: 100%;
+    height: auto;
+  }
+  .nav {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10%;
+    font-size: 1.2rem;
+    &-item {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 15px;
+      margin: 10px 0;
+      background: black;
+      &-name {
+        padding-left: 10px;
+      }
+    }
+  }
 }
