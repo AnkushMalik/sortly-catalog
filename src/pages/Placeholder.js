@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom";
-import "./common.scss";
+import "./pages.scss";
 
 const Placeholder = () => {
   const { pathname } = useLocation();

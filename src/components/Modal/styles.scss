@@ -1,0 +1,27 @@
+.custom-modal {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &.false {
+    display: none;
+  }
+  &.children {
+    min-height: 100px;
+    min-width: 100px;
+  }
+  .background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    filter: blur(100px);
+    z-index: 1;
+  }
+}
