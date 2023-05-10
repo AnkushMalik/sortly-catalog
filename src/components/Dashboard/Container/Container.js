@@ -9,7 +9,9 @@ const Container = () => {
       <Routes>
         <Route path="/" element={<Items />} />
         <Route path="/items" element={<Items />} />
-        <Route path="/dashboard" element={<Placeholder />} />
+        {["/dashboard", "/reports", "/tags", "/search"].map((path, index) => (
+          <Route path={path} element={<Placeholder />} key={index} />
+        ))}
       </Routes>
     </div>
   );

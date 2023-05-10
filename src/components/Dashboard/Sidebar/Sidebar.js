@@ -5,52 +5,55 @@ import {
   MdPushPin,
   MdInsertChartOutlined,
 } from "react-icons/md";
-import { BrowserRouter as Router, Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import "./styles.scss";
 
 const Sidebar = () => {
+  const { pathname } = useLocation();
+
+  const LinkData = [
+    {
+      path: ["/dashboard"],
+      name: "Dashboard",
+      iconElement: <MdOutlineDashboard />,
+    },
+    {
+      path: ["/items", "/"],
+      name: "Items",
+      iconElement: <MdOutlineInventory2 />,
+    },
+    {
+      path: ["/search"],
+      name: "Search",
+      iconElement: <MdSearch />,
+    },
+    {
+      path: ["/tags"],
+      name: "Tags",
+      iconElement: <MdPushPin />,
+    },
+    {
+      path: ["/reports"],
+      name: "reports",
+      iconElement: <MdInsertChartOutlined />,
+    },
+  ];
+
   return (
     <div className="sidebar">
       <img src={require("src/assets/logo.png")} className="logo" alt="logo" />
-      <Router>
-        <div className="nav">
-          <Link to="#">
-            <div className="nav-item">
-              <MdOutlineDashboard />
-              <span className="nav-item-name">Dashboard</span>
-            </div>
+      <div className="nav">
+        {LinkData.map((e, i) => (
+          <Link
+            to={e.path[0]}
+            className={`nav-item ${e.path.includes(pathname) && "selected"}`}
+          >
+            {e.iconElement}
+            <span className="nav-item-name">{e.name}</span>
           </Link>
-
-          <Link to="#">
-            <div className="nav-item">
-              <MdOutlineInventory2 />
-              <span className="nav-item-name">Items</span>
-            </div>
-          </Link>
-
-          <Link to="#">
-            <div className="nav-item">
-              <MdSearch />
-              <span className="nav-item-name">Search</span>
-            </div>
-          </Link>
-
-          <Link to="#">
-            <div className="nav-item">
-              <MdPushPin />
-              <span className="nav-item-name">Tags</span>
-            </div>
-          </Link>
-
-          <Link to="#">
-            <div className="nav-item">
-              <MdInsertChartOutlined />
-              <span className="nav-item-name">Reports</span>
-            </div>
-          </Link>
-        </div>
-      </Router>
+        ))}
+      </div>
     </div>
   );
 };
