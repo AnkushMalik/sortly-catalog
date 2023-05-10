@@ -10,10 +10,7 @@
   &.false {
     display: none;
   }
-  &.children {
-    min-height: 100px;
-    min-width: 100px;
-  }
+
   .background {
     position: absolute;
     top: 0;
@@ -23,5 +20,8 @@
     background-color: rgba(0, 0, 0, 0.5);
     filter: blur(100px);
     z-index: 1;
+  }
+  &-children {
+    z-index: 2;
   }
 }

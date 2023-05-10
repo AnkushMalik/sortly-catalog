@@ -1,10 +1,10 @@
 import React from "react";
 import Button from "src/components/Button/Button";
-import { MdAddBox } from "react-icons/md";
+import { MdAddBox, MdClose } from "react-icons/md";
 import Modal from "src/components/Modal/Modal";
 import "./pages.scss";
 
-const Items = () => {
+const AllItems = () => {
   const [modalState, SetModalState] = React.useState(false);
   const handleAddNew = () => {
     SetModalState(true);
@@ -25,15 +25,30 @@ const Items = () => {
           />
         </header>
         <Modal modalState={modalState}>
-          <>Hey There</>
+          <AddNewItem handleClose={handleModalClose} />
         </Modal>
       </div>
     </div>
   );
 };
 
-const AddNewItem = () => {
-  
-}
+const AddNewItem = ({ handleClose, handleSubmit }) => {
+  return (
+    <div className="addnewitem-form">
+      <div className="addnewitem-form-head">
+        <span className="title">Add Item</span>
+        <span onClick={handleClose}>
+          <MdClose />
+        </span>
+      </div>
+      <div className="addnewitem-form-body">
+        nameField
+        <br />
+        QTY FIELD | MINLEVEL FIELD <br />
+        PRICE in USD <tb /> reset | submit
+      </div>
+    </div>
+  );
+};
 
-export default Items;
+export default AllItems;
