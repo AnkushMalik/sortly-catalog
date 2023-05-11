@@ -34,7 +34,7 @@ export const tableData = [
   {
     name: "football",
     qty: 4,
-    minQty: 10,
+    minQty: null,
     price: 10,
     tags: ["sports"],
     notes: "High Gloss PU Synthetic leather stitched with Collar ankle mesh",
