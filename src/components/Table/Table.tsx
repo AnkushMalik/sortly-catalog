@@ -20,16 +20,18 @@ const Table = ({ tableData }) => {
       id: "select",
       header: ({ table }) => (
         <>
-          <IndeterminateCheckbox
-            {...{
-              checked: table.getIsAllRowsSelected(),
-              indeterminate: table.getIsSomeRowsSelected(),
-              onChange: table.getToggleAllRowsSelectedHandler(),
-            }}
-          />
-          {Object.keys(rowSelection).length
-            ? `${Object.keys(rowSelection).length} items getIsSelected`
-            : null}
+          <div className="selector-cell">
+            <IndeterminateCheckbox
+              {...{
+                checked: table.getIsAllRowsSelected(),
+                indeterminate: table.getIsSomeRowsSelected(),
+                onChange: table.getToggleAllRowsSelectedHandler(),
+              }}
+            />
+            {Object.keys(rowSelection).length
+              ? `${Object.keys(rowSelection).length} items selected`
+              : null}
+          </div>
         </>
       ),
       cell: ({ row }) => (
@@ -44,35 +46,41 @@ const Table = ({ tableData }) => {
       ),
     },
     columnHelper.accessor("name", {
+      header: () => <span>NAME</span>,
       cell: (info) => info.getValue(),
       footer: (info) => info.column.id,
     }),
     columnHelper.accessor((row) => row.qty, {
       id: "qty",
-      header: () => <span>qty</span>,
-      cell: (info) => <i>{info.renderValue()}</i>,
+      header: () => <span>QUANTITY</span>,
+      cell: (info) => <span>{info.renderValue()} units</span>,
       footer: (info) => info.column.id,
     }),
     columnHelper.accessor("price", {
-      header: () => "Price",
-      cell: (info) => info.renderValue(),
+      header: () => "PRICE",
+      cell: (info) => (info.renderValue() ? info.renderValue() : "--"),
       footer: (info) => info.column.id,
     }),
     columnHelper.accessor("tags", {
-      header: () => "Tags",
+      header: () => "TAGS",
       cell: (info) => (
         <>
-          {info.getValue().map((e, i) => (
-            <span key={i}>{e}</span>
-          ))}
+          {info.getValue()?.length > 0
+            ? info.getValue().map((e, i) => <span key={i}>{e}</span>)
+            : "--"}
         </>
       ),
       footer: (info) => info.column.id,
     }),
     columnHelper.accessor("notes", {
-      header: () => <span>Notes</span>,
+      header: () => <span>NOTES</span>,
+      cell: (info) => (info.getValue() ? info.getValue() : "--"),
       footer: (info) => info.column.id,
     }),
+    {
+      id: "Edit",
+      header: ({ table }) => <>{"EDIT"}</>,
+    },
   ];
 
   const table = useReactTable({

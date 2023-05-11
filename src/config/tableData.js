@@ -19,7 +19,7 @@ export const tableData = [
     name: "forks",
     qty: 37,
     minQty: 20,
-    price: 3.5,
+    price: null,
     tags: ["silver", "kitchen", "metal"],
     notes: "",
   },

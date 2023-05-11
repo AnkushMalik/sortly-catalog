@@ -1,3 +1,45 @@
 .catalog-table {
+  color: #47495b;
   background: white;
+  margin-top: 3rem;
+  table-layout: auto;
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 0.5rem;
+
+  tr {
+    height: 3rem;
+    position: relative;
+    th,
+    td {
+      text-align: left;
+      padding-left: 10px;
+    }
+  }
+
+  &-head {
+    tr {
+      color: #878798;
+      padding: 0;
+      margin: 0;
+      border-bottom: 1px solid #edebf5;
+      .selector-cell {
+        position: absolute;
+        top: 1rem;
+        color: white;
+        input {
+          margin-right: 15px;
+        }
+      }
+    }
+    &.selected {
+      background: #47495b;
+      color: white;
+      tr th:not(:first-child) {
+        color: #47495b;
+      }
+    }
+  }
+  &-body {
+  }
 }
