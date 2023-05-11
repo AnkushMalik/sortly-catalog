@@ -11,9 +11,22 @@ import "./styles.scss";
 
 const columnHelper = createColumnHelper();
 
+type Item = {
+  name: string;
+  qty: number;
+  minQty: number;
+  price: number;
+  tags: string[];
+  notes: string;
+};
+
 const Table = ({ tableData, editButton }) => {
   const [data, setData] = React.useState(tableData);
   const [rowSelection, setRowSelection] = React.useState({});
+
+  React.useEffect(() => {
+    setData(tableData);
+  }, [tableData]);
 
   const columns = [
     {
@@ -132,11 +145,11 @@ const Table = ({ tableData, editButton }) => {
   );
 };
 
-function IndeterminateCheckbox({
+const IndeterminateCheckbox = ({
   indeterminate,
   className = "",
   ...rest
-}: { indeterminate?: boolean } & HTMLProps<HTMLInputElement>) {
+}: { indeterminate?: boolean } & HTMLProps<HTMLInputElement>) => {
   const ref = React.useRef<HTMLInputElement>(null!);
 
   React.useEffect(() => {
@@ -153,6 +166,6 @@ function IndeterminateCheckbox({
       {...rest}
     />
   );
-}
+};
 
 export default Table;

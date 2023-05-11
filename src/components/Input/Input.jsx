@@ -1,18 +1,26 @@
+import "./styles.scss";
+
 const Input = ({
-  bordered,
+  bordered = true,
   inputType,
   inputValue,
   placeHolder,
   handleOnChange,
+  errorMessage = "",
 }) => {
   return (
-    <input
-      className={`custom-input ${bordered ? "bordered" : ""}`}
-      type={inputType}
-      placeholder={placeHolder}
-      onChange={handleOnChange}
-      value={inputValue}
-    />
+    <div className="custom-input-container">
+      <input
+        className={`custom-input ${bordered ? "bordered" : ""} ${
+          errorMessage.length > 0 ? "invalid-input" : ""
+        }`}
+        type={inputType}
+        placeholder={placeHolder}
+        onChange={handleOnChange}
+        value={inputValue}
+      />
+      {errorMessage && <span>{errorMessage}</span>}
+    </div>
   );
 };
 

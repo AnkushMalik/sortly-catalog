@@ -1,0 +1,21 @@
+.custom-input-container {
+  flex: 1;
+  margin: 0 5px;
+  display: flex;
+  flex-direction: column;
+  .custom-input {
+    flex: 1;
+    padding-left: 0.5rem;
+    border: none;
+    border-bottom: 1px solid;
+    &.bordered {
+      border: 1px solid;
+    }
+    &.invalid-input {
+      border-color: red;
+    }
+  }
+  span {
+    color: red;
+  }
+}

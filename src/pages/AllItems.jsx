@@ -14,10 +14,6 @@ const AllItems = () => {
   const [modalState, SetModalState] = React.useState(false);
   const [itemConfig, SetItemConfig] = React.useState({ ...itemData });
 
-  React.useEffect(() => {
-    console.log("itemConfig>", itemConfig);
-  }, [itemConfig]);
-
   const handleAddNew = () => SetModalState(true);
 
   const handleModalClose = () => SetModalState(false);
@@ -26,16 +22,24 @@ const AllItems = () => {
 
   const handleFieldChange = (e, key) => {
     let newItem = itemConfig;
-    if (key != "tags") {
-      newItem[key] = e.target.value;
-    } else {
+    if (key == "tags") {
       let tags = e.target.value.split(",");
       newItem[key] = tags;
+    } else if (["name", "notes"].includes(key)) {
+      newItem[key] = e.target.value;
+    } else {
+      newItem[key] = parseInt(e.target.value);
     }
     SetItemConfig({ ...newItem });
   };
 
   const resetField = () => SetItemConfig({ ...itemData });
+
+  const handleAddNewItem = () => {
+    SetData([...data, itemConfig]);
+    handleModalClose();
+    resetField();
+  };
 
   return (
     <div className="allitems page">
@@ -54,6 +58,7 @@ const AllItems = () => {
         </div>
         <div>
           <Table
+            key={"asd"}
             tableData={data}
             editButton={
               <Button
@@ -69,6 +74,7 @@ const AllItems = () => {
           <AddNewItem
             handleClose={handleModalClose}
             handleInputChange={handleFieldChange}
+            primaryHandler={handleAddNewItem}
             secondaryHandler={resetField}
             dataBundle={itemConfig}
           />
@@ -101,36 +107,50 @@ const AddNewItem = ({
             bordered={false}
             handleOnChange={(e) => handleInputChange(e, "name")}
             inputValue={dataBundle?.name}
+            errorMessage={
+              dataBundle?.name == "" ||
+              dataBundle?.name.length < 6 ||
+              dataBundle?.name.length > 30
+                ? "Name can't be blank; Name should be between 6 and 30 chars"
+                : ""
+            }
           />
         </div>
         <div className="newitem-form-body-row">
           <Input
             placeHolder={"Quantity*"}
             inputType={"number"}
-            bordered={false}
             handleOnChange={(e) => handleInputChange(e, "qty")}
             inputValue={dataBundle?.qty || ""}
+            errorMessage={
+              dataBundle?.qty < 0 || dataBundle?.qty == null
+                ? "Qty should be positive or zero"
+                : ""
+            }
           />
           <Input
             placeHolder={"Min Level"}
             inputType={"number"}
-            bordered={false}
             handleOnChange={(e) => handleInputChange(e, "minQty")}
             inputValue={dataBundle?.minQty || ""}
+            errorMessage={
+              dataBundle?.minQty < 0 || dataBundle.minQty == null
+                ? "Min Qty should be positive or zero"
+                : ""
+            }
           />
         </div>
         <div className="newitem-form-body-row">
           <Input
             placeHolder={"Price, USD"}
             inputType={"number"}
-            bordered={false}
             handleOnChange={(e) => handleInputChange(e, "price")}
             inputValue={dataBundle?.price || ""}
+            errorMessage={!dataBundle?.price ? "Price should be a number" : ""}
           />
           <Input
             placeHolder={"Tags (comma seprated)"}
             inputType={"string"}
-            bordered={false}
             handleOnChange={(e) => handleInputChange(e, "tags")}
             inputValue={dataBundle?.tags.join()}
           />
@@ -139,14 +159,13 @@ const AddNewItem = ({
           <Input
             placeHolder={"Notes"}
             inputType={"string"}
-            bordered={false}
             handleOnChange={(e) => handleInputChange(e, "notes")}
             inputValue={dataBundle?.notes}
           />
         </div>
         <div className="newitem-form-body-row">
           <Button buttonText={"Reset"} buttonAction={secondaryHandler} />
-          <Button buttonText={"Submit"} />
+          <Button buttonText={"Submit"} buttonAction={primaryHandler} />
         </div>
       </div>
     </div>
