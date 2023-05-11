@@ -9,11 +9,20 @@
   min-width: 135px;
   padding: 20px 15px;
   font-size: 1rem;
-  border-radius: 0.5rem;
+  border-radius: 0.25rem;
   svg {
     font-size: 1.5rem;
   }
   &.primary {
     background: #de4f5b;
+  }
+  &.secondary {
+    min-width: auto;
+    padding: 10px 5px;
+    font-size: 0.8rem;
+    svg {
+      font-size: 1rem;
+      margin-right: 0.25rem;
+    }
   }
 }

@@ -11,7 +11,7 @@ import "./styles.scss";
 
 const columnHelper = createColumnHelper();
 
-const Table = ({ tableData }) => {
+const Table = ({ tableData, editButton }) => {
   const [data, setData] = React.useState(tableData);
   const [rowSelection, setRowSelection] = React.useState({});
 
@@ -79,7 +79,7 @@ const Table = ({ tableData }) => {
     }),
     {
       id: "Edit",
-      header: ({ table }) => <>{"EDIT"}</>,
+      header: ({ table }) => <>{editButton}</>,
     },
   ];
 

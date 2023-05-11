@@ -1,6 +1,6 @@
 import React from "react";
 import Button from "src/components/Button/Button";
-import { MdAddBox, MdClose } from "react-icons/md";
+import { MdAddBox, MdClose, MdEditDocument } from "react-icons/md";
 import Modal from "src/components/Modal/Modal";
 import Table from "src/components/Table/Table.tsx";
 
@@ -14,6 +14,8 @@ const AllItems = () => {
   const handleAddNew = () => SetModalState(true);
 
   const handleModalClose = () => SetModalState(false);
+
+  const handleEdit = () => console.log("edit was clicked!");
 
   return (
     <div className="allitems page">
@@ -31,7 +33,17 @@ const AllItems = () => {
           <input value="Search Field" />
         </div>
         <div>
-          <Table tableData={data} />
+          <Table
+            tableData={data}
+            editButton={
+              <Button
+                buttonAction={handleEdit}
+                buttonText={"Edit"}
+                buttonIcon={<MdEditDocument />}
+                buttonType={"secondary"}
+              />
+            }
+          />
         </div>
         <Modal modalState={modalState}>
           <AddNewItem handleClose={handleModalClose} />

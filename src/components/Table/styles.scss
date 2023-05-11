@@ -23,6 +23,11 @@
       padding: 0;
       margin: 0;
       border-bottom: 1px solid #edebf5;
+      th:last-child {
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+      }
       .selector-cell {
         position: absolute;
         top: 1rem;
@@ -41,5 +46,10 @@
     }
   }
   &-body {
+    tr {
+      td:last-child {
+        display: none;
+      }
+    }
   }
 }
