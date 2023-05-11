@@ -36,6 +36,17 @@
           margin-right: 15px;
         }
       }
+      .column-edit {
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+        background-color: white;
+        position: absolute;
+        width: max-content;
+        right: 0;
+        z-index: 1;
+        box-shadow: 0px 5px 10px #888888;
+      }
     }
     &.selected {
       background: #47495b;

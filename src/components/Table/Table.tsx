@@ -6,6 +6,8 @@ import {
   createColumnHelper,
 } from "@tanstack/react-table";
 import React from "react";
+import Button from "../Button/Button";
+import { MdEditDocument } from "react-icons/md";
 
 import "./styles.scss";
 
@@ -22,6 +24,7 @@ type Item = {
 
 const Table = ({ tableData, editButton }) => {
   const [data, setData] = React.useState(tableData);
+  const [showColumnEdit, SetShowColumnEdit] = React.useState(false);
   const [rowSelection, setRowSelection] = React.useState({});
 
   React.useEffect(() => {
@@ -92,7 +95,38 @@ const Table = ({ tableData, editButton }) => {
     }),
     {
       id: "Edit",
-      header: ({ table }) => <>{editButton}</>,
+      header: ({ table }) => (
+        <>
+          <Button
+            buttonAction={() => SetShowColumnEdit(!showColumnEdit)}
+            buttonText={"Edit"}
+            buttonIcon={<MdEditDocument />}
+            buttonType={"secondary"}
+          />
+          {showColumnEdit && (
+            <div className="column-edit">
+              {table.getAllLeafColumns().map((column) => {
+                return ["qty", "price", "tags", "notes"].includes(column.id) ? (
+                  <div key={column.id}>
+                    <label>
+                      <input
+                        {...{
+                          type: "checkbox",
+                          checked: column.getIsVisible(),
+                          onChange: column.getToggleVisibilityHandler(),
+                        }}
+                      />{" "}
+                      {column.id}
+                    </label>
+                  </div>
+                ) : (
+                  <></>
+                );
+              })}
+            </div>
+          )}
+        </>
+      ),
     },
   ];
 
@@ -109,7 +143,6 @@ const Table = ({ tableData, editButton }) => {
 
   return (
     <>
-      <div>{table.getIsSomeRowsSelected()}</div>
       <table className="catalog-table">
         <thead
           className={`catalog-table-head ${
