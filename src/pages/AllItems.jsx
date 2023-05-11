@@ -39,6 +39,13 @@ const AllItems = () => {
     resetField();
   };
 
+  const handleSearch = (e) => {
+    let query = e.target.value;
+    let result = tableData.filter((e) => e.name.includes(query));
+
+    SetData(result);
+  };
+
   return (
     <div className="allitems page">
       <div className="allitems-container">
@@ -51,11 +58,16 @@ const AllItems = () => {
             buttonType="primary"
           />
         </header>
-        <div>
-          <input value="Search Field" />
+        <div class="search-container">
+          <Input
+            placeHolder={"Search All Items"}
+            inputType={"text"}
+            bordered={true}
+            handleOnChange={handleSearch}
+          />
         </div>
         <div>
-          <Table key={"asd"} tableData={data} />
+          <Table tableData={data} />
         </div>
         <Modal modalState={modalState}>
           <AddNewItem

@@ -19,6 +19,14 @@
       align-items: center;
       justify-content: space-between;
     }
+    .search-container {
+      width: 250px;
+      padding-top: 1rem;
+      input {
+        padding: 15px 10px;
+        border-color: red;
+      }
+    }
   }
   // modal form
   .newitem-form {

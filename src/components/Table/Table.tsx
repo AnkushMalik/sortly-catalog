@@ -106,7 +106,7 @@ const Table = ({ tableData, editButton }) => {
           {showColumnEdit && (
             <div className="column-edit">
               {table.getAllLeafColumns().map((column) => {
-                return ["qty", "price", "tags", "notes"].includes(column.id) ? (
+                return ["price", "tags", "notes"].includes(column.id) ? (
                   <div key={column.id}>
                     <label>
                       <input
