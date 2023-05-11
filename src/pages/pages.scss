@@ -36,6 +36,15 @@
     border-radius: 1.5rem;
     display: flex;
     flex-direction: column;
+    &.update-form {
+      min-height: 250px;
+      .newitem-form-head {
+        flex: 1;
+      }
+      .newitem-form-body {
+        flex: 2;
+      }
+    }
     &-head {
       flex: 2;
       background: #e2e3ef;
@@ -55,6 +64,13 @@
         display: flex;
         flex: 1;
         margin: 5px 0;
+        button {
+          flex: 1;
+          margin: 0 5px;
+          text-align: center;
+          display: flex;
+          justify-content: center;
+        }
       }
     }
   }

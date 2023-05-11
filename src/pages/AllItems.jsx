@@ -12,6 +12,7 @@ import "./pages.scss";
 const AllItems = () => {
   const [data, SetData] = React.useState(tableData);
   const [modalState, SetModalState] = React.useState(false);
+
   const [itemConfig, SetItemConfig] = React.useState({ ...itemData });
 
   const handleAddNew = () => SetModalState(true);
@@ -67,7 +68,10 @@ const AllItems = () => {
           />
         </div>
         <div>
-          <Table tableData={data} />
+          <Table
+            tableData={data}
+            editRowMethod={() => SetUpdateModalState(!updateModalState)}
+          />
         </div>
         <Modal modalState={modalState}>
           <AddNewItem

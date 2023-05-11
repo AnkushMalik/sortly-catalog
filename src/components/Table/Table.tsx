@@ -7,7 +7,9 @@ import {
 } from "@tanstack/react-table";
 import React from "react";
 import Button from "../Button/Button";
-import { MdEditDocument } from "react-icons/md";
+import { MdEditDocument, MdClose } from "react-icons/md";
+import Modal from "../Modal/Modal";
+import Input from "../Input/Input";
 
 import "./styles.scss";
 
@@ -22,10 +24,19 @@ type Item = {
   notes: string;
 };
 
-const Table = ({ tableData, editButton }) => {
+const initUpdateFields = {
+  qty: null,
+  minQty: null,
+  notes: "",
+};
+
+const Table = ({ tableData, editRowMethod }) => {
   const [data, setData] = React.useState(tableData);
   const [showColumnEdit, SetShowColumnEdit] = React.useState(false);
   const [rowSelection, setRowSelection] = React.useState({});
+  const [updateModalState, SetUpdateModalState] = React.useState(false);
+  const [updateRowFields, SetUpdateRowFields] =
+    React.useState(initUpdateFields);
 
   React.useEffect(() => {
     setData(tableData);
@@ -97,12 +108,23 @@ const Table = ({ tableData, editButton }) => {
       id: "Edit",
       header: ({ table }) => (
         <>
-          <Button
-            buttonAction={() => SetShowColumnEdit(!showColumnEdit)}
-            buttonText={"Edit"}
-            buttonIcon={<MdEditDocument />}
-            buttonType={"secondary"}
-          />
+          {console.log("#>>", table.getSelectedRowModel().flatRows[0])}
+          {Object.keys(rowSelection).length > 0 ? (
+            <Button
+              buttonAction={() => SetUpdateModalState(true)}
+              buttonText={"Edit"}
+              buttonIcon={<MdEditDocument />}
+              buttonType={"secondary"}
+            />
+          ) : (
+            <Button
+              buttonAction={() => SetShowColumnEdit(!showColumnEdit)}
+              buttonText={"Edit"}
+              buttonIcon={<MdEditDocument />}
+              buttonType={"secondary"}
+            />
+          )}
+
           {showColumnEdit && (
             <div className="column-edit">
               {table.getAllLeafColumns().map((column) => {
@@ -141,6 +163,8 @@ const Table = ({ tableData, editButton }) => {
     onRowSelectionChange: setRowSelection,
   });
 
+  const handleRowUpdate = () => {};
+
   return (
     <>
       <table className="catalog-table">
@@ -174,6 +198,12 @@ const Table = ({ tableData, editButton }) => {
           ))}
         </tbody>
       </table>
+      <Modal modalState={updateModalState}>
+        <UpdateItem
+          dataBundle={updateRowFields}
+          handleClose={() => SetUpdateModalState(!updateModalState)}
+        />
+      </Modal>
     </>
   );
 };
@@ -198,6 +228,49 @@ const IndeterminateCheckbox = ({
       className={className + " cursor-pointer"}
       {...rest}
     />
+  );
+};
+
+const UpdateItem = ({
+  handleClose,
+  dataBundle,
+  primaryHandler,
+  secondaryHandler,
+}) => {
+  return (
+    <div className="newitem-form update-form">
+      <div className="newitem-form-head">
+        <span className="title">Update Item</span>
+        <span onClick={handleClose}>
+          <MdClose />
+        </span>
+      </div>
+      <div className="newitem-form-body">
+        <div className="newitem-form-body-row">
+          <Input
+            placeHolder={"Quantity*"}
+            inputType={"number"}
+            inputValue={dataBundle.qty}
+          />
+          <Input
+            placeHolder={"Min Level"}
+            inputType={"number"}
+            inputValue={dataBundle.minQty}
+          />
+        </div>
+        <div className="newitem-form-body-row">
+          <Input
+            placeHolder={"Notes"}
+            inputType={"string"}
+            inputValue={dataBundle.notes}
+          />
+        </div>
+        <div className="newitem-form-body-row">
+          <Button buttonText={"Reset"} buttonAction={secondaryHandler} />
+          <Button buttonText={"Submit"} buttonAction={primaryHandler} />
+        </div>
+      </div>
+    </div>
   );
 };
 
