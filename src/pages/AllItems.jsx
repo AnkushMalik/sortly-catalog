@@ -35,6 +35,7 @@ const AllItems = () => {
   const resetField = () => SetItemConfig({ ...itemData });
 
   const handleAddNewItem = () => {
+    if (itemConfig.name.length < 6) return;
     SetData([...data, itemConfig]);
     handleModalClose();
     resetField();
