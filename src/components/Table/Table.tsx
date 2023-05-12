@@ -217,11 +217,20 @@ const Table = ({ tableData, editRowMethod }) => {
         <tbody className="catalog-table-body">
           {table.getRowModel()?.rows.map((row) => (
             <tr key={row.id}>
-              {row.getVisibleCells().map((cell) => (
-                <td key={cell.id} className={`td-${cell.column.id}`}>
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </td>
-              ))}
+              {row.getVisibleCells().map((cell) => {
+                let { qty, minQty } = row.original;
+                return (
+                  <td
+                    key={cell.id}
+                    className={`td-${cell.column.id} ${
+                      qty < minQty ? "alert-cell" : ""
+                    }`}
+                  >
+                    {console.log(qty, minQty)}
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </td>
+                );
+              })}
             </tr>
           ))}
         </tbody>
