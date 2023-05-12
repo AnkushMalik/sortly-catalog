@@ -26,6 +26,7 @@ or
 ```npm run build```
 or
 ```yarn build```
+
 When build is ready, You may serve it with a static server:
 ```
   yarn global add serve
