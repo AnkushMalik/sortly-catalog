@@ -108,7 +108,6 @@ const Table = ({ tableData, editRowMethod }) => {
       id: "Edit",
       header: ({ table }) => (
         <>
-          {console.log("#>>", table.getSelectedRowModel().flatRows[0])}
           {Object.keys(rowSelection).length > 0 ? (
             <Button
               buttonAction={() => SetUpdateModalState(true)}
@@ -163,7 +162,35 @@ const Table = ({ tableData, editRowMethod }) => {
     onRowSelectionChange: setRowSelection,
   });
 
-  const handleRowUpdate = () => {};
+  const handleRowUpdate = () => {
+    let tempTableData = data;
+    let relevantRows = table.getSelectedRowModel().flatRows;
+
+    relevantRows.map((rRow) => {
+      tempTableData.map((row, idx) => {
+        if (row.name === rRow.original.name)
+          tempTableData[idx] = { ...row, ...updateRowFields };
+      });
+    });
+
+    setData([...tempTableData]);
+    handleRowUpdateCancel();
+  };
+
+  const handleRowUpdateCancel = () => {
+    SetUpdateRowFields({ ...initUpdateFields });
+    SetUpdateModalState(false);
+  };
+
+  const handleFieldChange = (e, key) => {
+    let newVals = updateRowFields;
+    if (key == "notes") {
+      newVals[key] = e.target.value;
+    } else {
+      newVals[key] = parseInt(e.target.value);
+    }
+    SetUpdateRowFields({ ...newVals });
+  };
 
   return (
     <>
@@ -201,6 +228,9 @@ const Table = ({ tableData, editRowMethod }) => {
       <Modal modalState={updateModalState}>
         <UpdateItem
           dataBundle={updateRowFields}
+          handleInputChange={handleFieldChange}
+          primaryHandler={handleRowUpdate}
+          secondaryHandler={handleRowUpdateCancel}
           handleClose={() => SetUpdateModalState(!updateModalState)}
         />
       </Modal>
@@ -234,6 +264,7 @@ const IndeterminateCheckbox = ({
 const UpdateItem = ({
   handleClose,
   dataBundle,
+  handleInputChange,
   primaryHandler,
   secondaryHandler,
 }) => {
@@ -250,24 +281,31 @@ const UpdateItem = ({
           <Input
             placeHolder={"Quantity*"}
             inputType={"number"}
-            inputValue={dataBundle.qty}
+            handleOnChange={(e) => handleInputChange(e, "qty")}
+            inputValue={dataBundle.qty || ""}
           />
           <Input
             placeHolder={"Min Level"}
             inputType={"number"}
-            inputValue={dataBundle.minQty}
+            handleOnChange={(e) => handleInputChange(e, "minQty")}
+            inputValue={dataBundle.minQty || ""}
           />
         </div>
         <div className="newitem-form-body-row">
           <Input
             placeHolder={"Notes"}
             inputType={"string"}
+            handleOnChange={(e) => handleInputChange(e, "notes")}
             inputValue={dataBundle.notes}
           />
         </div>
         <div className="newitem-form-body-row">
-          <Button buttonText={"Reset"} buttonAction={secondaryHandler} />
-          <Button buttonText={"Submit"} buttonAction={primaryHandler} />
+          <Button buttonText={"Cancel"} buttonAction={secondaryHandler} />
+          <Button
+            buttonText={"Update"}
+            buttonAction={primaryHandler}
+            buttonType={"primary"}
+          />
         </div>
       </div>
     </div>
