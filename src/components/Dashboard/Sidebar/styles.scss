@@ -1,0 +1,38 @@
+.sidebar {
+  flex: 1;
+  background: #d92533;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .logo {
+    width: 100%;
+    height: auto;
+  }
+  .nav {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10% 0;
+    font-size: 1.2rem;
+    &-item {
+      color: white;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 15px;
+      margin: 10px 0;
+      width: 80%;
+      &-name {
+        padding-left: 15px;
+      }
+      &.selected {
+        background: #e0515d;
+        border-radius: 0.5rem;
+      }
+    }
+  }
+}
