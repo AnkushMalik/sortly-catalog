@@ -4,6 +4,8 @@ The Sortly Catalog App is a powerful inventory management tool designed to help 
 
 With the Sortly-Catalog, you can easily track your inventory levels and receive smart alerts whenever your supplies are running low. This helps you avoid stockouts and ensures that you always have the supplies you need to keep your business running smoothly.
 
+<img width="1728" alt="image" src="https://github.com/AnkushMalik/sortly-catalog/assets/13421233/99ba9df5-2076-4b32-b8db-d3c6dc165217">
+
 #### The app also features a variety of powerful tools for managing your inventory.
 
 - You can filter the inventory table rows by various criteria, making it easy to find the products you need quickly.
