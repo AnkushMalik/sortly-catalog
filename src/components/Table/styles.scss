@@ -58,8 +58,13 @@
   }
   &-body {
     tr {
-      td:last-child {
-        display: none;
+      td {
+        &.td-tags {
+          display: flex;
+        }
+        &:last-child {
+          display: none;
+        }
       }
     }
   }

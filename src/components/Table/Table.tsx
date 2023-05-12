@@ -10,6 +10,7 @@ import Button from "../Button/Button";
 import { MdEditDocument, MdClose } from "react-icons/md";
 import Modal from "../Modal/Modal";
 import Input from "../Input/Input";
+import Tag from "../Tag/Tag";
 
 import "./styles.scss";
 
@@ -93,7 +94,7 @@ const Table = ({ tableData, editRowMethod }) => {
       cell: (info) => (
         <>
           {info.getValue()?.length > 0
-            ? info.getValue().map((e, i) => <span key={i}>{e}</span>)
+            ? info.getValue().map((e, i) => <Tag key={i} value={e} />)
             : "--"}
         </>
       ),
@@ -217,7 +218,7 @@ const Table = ({ tableData, editRowMethod }) => {
           {table.getRowModel()?.rows.map((row) => (
             <tr key={row.id}>
               {row.getVisibleCells().map((cell) => (
-                <td key={cell.id}>
+                <td key={cell.id} className={`td-${cell.column.id}`}>
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </td>
               ))}
